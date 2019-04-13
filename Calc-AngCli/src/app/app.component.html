@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  Calculadora
+  <span class="example-spacer"></span>
+
+    <mat-icon class="example-spacer" aria-hidden="false" aria-label="Example delete icon">
+        favorite
+    </mat-icon>
+
+    <mat-icon class="example-spacer" aria-hidden="false" aria-label="Example delete icon">
+        delete
+    </mat-icon>    
+
+  <ng-template #authenticated>
+      <button mat-raised-button color="warn"
+      (click)="authenticate()">
+        Salir
+      </button>
+    </ng-template>
+    
+    <ng-template #notAuthenticated>
+      <button mat-raised-button color="warn"
+      (click)="authenticate()">
+        Entrar
+      </button>
+    </ng-template>
+</mat-toolbar>
+
+<div *ngIf="isAuthenticated then authenticated; else notAuthenticated">
+
+</div>
+
+<mat-card class="card">
+  <form class="form">
+    <mat-form-field class="field">
+      <input matInput class="input" placeholder="Números" type="number" name="inputNumero" [(ngModel)]="result">
+    </mat-form-field>
+  </form>
+
+  <button mat-mini-fab color="warn" class="buttonNumber" *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]"
+    (click)="getNumber(number)">
+    {{ number }}
+  </button>
+
+  <button mat-mini-fab color="accent" class="buttonNumber" *ngFor="let oper of ['+', '-', '*', '/', '=']"
+    (click)="setResult(oper)">
+    {{ oper }}
+  </button>
+
+  <h1>{{ expresion }}</h1>
+
+</mat-card>
+
+<router-outlet></router-outlet>
