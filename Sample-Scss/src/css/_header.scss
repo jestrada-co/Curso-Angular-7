@@ -1,39 +1,10 @@
 .header{
     background: #fff;
-    padding: 10px 0;
+    grid-area: header;
     width: 100%;
-    position: fixed;
-    z-index: 1;
-    .container{
-        display: flex;
-        justify-content: space-between;
-        .logo{
-            color: $main-color;
-            @include setSpacing(0);    
-        }
-        .nav{
-            .list{
-                @include setSpacing(0);
-                display: flex;
-                list-style-type: none;
-                padding-top: 10px;
-                .list-item{
-                    .list-item-link{
-                        border-right: 1px #dfdfdf solid;
-                        color: $links;
-                        padding: 10px 20px;
-                        transition: background 1s;
-                    }
-                    .list-item-link:hover{
-                        background: #dfdfdf;
-                    }                
-                }
-                .list-item:last-child{
-                    .list-item-link{
-                        border-right: none;
-                    }
-                }
-            }
-        }        
+    height: 10vh;
+    .logo{
+        color: $main-color;
+        @include setSpacing(0);    
     }
 }
