@@ -1,0 +1,38 @@
+<header class="header">
+  <div class="container">
+      <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <span>Chat</span>
+          </mat-toolbar-row>
+      </mat-toolbar>   
+  </div>
+</header>
+
+<section class="section">
+
+  <div class="container">  
+<!--     <mat-list>
+      <mat-list-item>Conversación</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list> -->
+
+    <form class="form">
+        <mat-form-field class="form-field-input-name">
+          <input matInput placeholder="Nombre" [(ngModel)]="name" name="name">
+        </mat-form-field>  
+        <mat-form-field class="form-field-input-message">
+          <input matInput placeholder="Mensaje" [(ngModel)]="message" name="message">
+        </mat-form-field>
+        <button class="form-button" mat-stroked-button (click)="save()" color="primary">
+          Enviar
+        </button> 
+    </form>
+    
+    <ul>
+      <li *ngFor='let message of messages | async'>
+        {{ message.name }} -> {{ message.message }}
+        <button mat-stroked-button (click)="borrar()">Borrar</button>
+      </li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+}
+body{
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.container{
+    width: 600px;
+    margin: 0 auto;
+}
+.section{
+    margin-top: 57px;
+    .form {
+        //flex: relative;
+        .form-field {
+            .form-field-input-name{
+                width: 500px;
+            }
+        }
+    }
+}
