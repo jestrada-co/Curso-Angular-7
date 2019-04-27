@@ -1,14 +1,14 @@
 .section{
-    height: 500px;
+    height: 100vh;
     .container{
         position: relative;
         min-height: 100%;
         .box{
             background: #FFF;
-            bottom: 70px;
+            bottom: 200px;
             padding: 60px 52px 30px 52px;
             position: absolute;
-            top: 45px;
+            top: 101px;
             width: 380px;
             .box-title{
                 @include setSpacing(0);
@@ -30,4 +30,7 @@
 }
 .section-one{
     padding-top: 57px;
+}
+.section-one, .section-two{
+    background: linear-gradient(#cff0ff, #899aa1);
 }
