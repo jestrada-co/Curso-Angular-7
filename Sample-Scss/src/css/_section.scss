@@ -1,0 +1,33 @@
+.section{
+    height: 500px;
+    .container{
+        position: relative;
+        min-height: 100%;
+        .box{
+            background: #FFF;
+            bottom: 70px;
+            padding: 60px 52px 30px 52px;
+            position: absolute;
+            top: 45px;
+            width: 380px;
+            .box-title{
+                @include setSpacing(0);
+                font-size: 38px;
+            }
+            .box-text{
+                @include setSpacing(0);
+                font-size: 18px;
+                line-height: 30px;
+            }
+        }
+        .box-left{
+            left: 0;
+        }
+        .box-right{
+            right: 0;
+        }
+    }
+}
+.section-one{
+    padding-top: 57px;
+}
