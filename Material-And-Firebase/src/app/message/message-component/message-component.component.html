@@ -1,0 +1,32 @@
+<section class="section">
+
+  <div class="container">  
+<!--     <mat-list>
+      <mat-list-item>Conversación</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list> -->
+
+    <form class="form">
+        <mat-form-field class="form-field-input-name">
+          <input matInput placeholder="Nombre" [(ngModel)]="name" name="name">
+        </mat-form-field>  
+        <mat-form-field class="form-field-input-message">
+          <input matInput placeholder="Mensaje" [(ngModel)]="message" name="message">
+        </mat-form-field>
+        <button class="form-button" mat-stroked-button (click)="save()" color="primary">
+          Enviar
+        </button> 
+    </form>
+    
+    <ul>
+      <li *ngFor='let message of messages | async'>
+        {{ message.name }} -> {{ message.message }} -> {{ message.imgUrl }}
+        <button mat-stroked-button (click)="delete(message.key)">Borrar</button>
+      </li>
+    </ul>
+    <p>
+      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+      <img [src]="imgUrl" height="200" *ngIf="imgUrl" [(ngModel)]="imgUrl" name="imgUrl">      
+    </p>
+  </div>
+</section>
