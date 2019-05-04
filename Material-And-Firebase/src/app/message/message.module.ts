@@ -1,31 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../environments/environment';
-
 import { MaterialDesignModule } from '../material-design/material-design.module';
 
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { MessageComponentComponent } from './message-component/message-component.component';
 import { MessageRoutingModule } from './message-routing.module';
-import { AppComponent } from '../app.component';
+
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 @NgModule({
   declarations: [MessageComponentComponent],
   imports: [
-    AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     MaterialDesignModule,
-    MessageRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MessageRoutingModule,
+    Ng2ImgMaxModule
+  ]
 })
 export class MessageModule { }

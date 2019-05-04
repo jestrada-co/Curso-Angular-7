@@ -10,29 +10,39 @@ export class MessageComponentComponent implements OnInit {
   messages: Observable<any[]>;
   name: string;
   message: string;
-
   imgMessage: string;
   imgUrl: string;
+  imgUrlOriginal: any;
   imgPath: string;
-
   mimeType: any;
   reader: any;
+  folder: string;
+  fileName: string;
 
   constructor(private service: MessageServiceService) { }
-
-  ngOnInit() {
-    this.messages = this.service.list();
-  }
-  save() {
-    this.service.save(this.name, this.message, this.imgUrl);
+  initFields() {
     this.name = '';
     this.message = '';
-    this.imgUrl = '';
+    this.imgUrl = null;
+    this.imgUrlOriginal = null;
   }
-  delete(key: string) {
+
+  ngOnInit() {
+    this.initFields();
+    this.messages = this.service.list();
+    this.folder = 'images';
+  }
+  save() {
+    this.service.save(this.name, this.message, this.imgUrl, this.fileName);
+    this.service.uploadFile(this.folder, this.fileName, this.imgUrlOriginal);
+    this.initFields();
+  }
+  delete(fileName: string, key: string) {
     this.service.delete(key);
+    this.service.deleteFile(this.folder, fileName);
+    this.initFields();
   }
-  preview(files) {
+  preview(files: any) {
     if (files.length === 0) {
       return;
     }
@@ -45,6 +55,10 @@ export class MessageComponentComponent implements OnInit {
 
     this.reader = new FileReader();
     this.imgPath = files;
+
+    this.fileName = String(Date.now()) + '.' + files[0].name.split('.')[1];
+    this.imgUrlOriginal = files[0];
+
     this.reader.readAsDataURL(files[0]);
     this.reader.onload = () => {
       this.imgUrl = this.reader.result;
