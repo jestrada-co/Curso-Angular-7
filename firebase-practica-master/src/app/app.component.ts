@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from './app.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,9 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
   estaAutenticado: boolean;
-  usuario: any;
-  mensaje: string;
-  constructor() {
+
+  constructor(private servicio: AppService, private router: Router) {
   }
 
   ngOnInit() {
@@ -23,6 +24,9 @@ export class AppComponent implements OnInit {
       this.estaAutenticado = true;
   }
   cerrarSesion() {
+    this.servicio.cerrarSesion();
     this.estaAutenticado = false;
+    localStorage.removeItem('user');
+    this.router.navigate(['/']);
   }
 }

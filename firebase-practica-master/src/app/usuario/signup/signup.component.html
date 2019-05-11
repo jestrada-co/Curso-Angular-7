@@ -1,3 +1,46 @@
-<p>
-  signup works!
-</p>
+<mat-card class="card">
+  <h2>Crear Cuenta</h2>    
+  <form class="form">
+      <mat-form-field class="form-field">
+        <input matInput
+        type="text" 
+        name="nombre"
+        placeholder="Nombre"
+        required
+        [(ngModel)]="nombre">
+      </mat-form-field>
+      
+      <mat-form-field class="form-field">
+        <input matInput
+        type="email" 
+        name="correo"
+        placeholder="Correo"
+        required
+        [(ngModel)]="correo">
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+          <input matInput
+          type="password" 
+          name="clave"
+          placeholder="Clave"
+          required
+          [(ngModel)]="clave">
+          </mat-form-field>
+
+          <mat-form-field class="form-field">
+            <input matInput
+            type="password" 
+            name="confirmarClave"
+            placeholder="Confirmar Clave"
+            required
+            [(ngModel)]="confirmarClave">
+            </mat-form-field>
+  </form>
+  <p *ngIf="mensaje"><small>{{mensaje}}</small></p>
+  <button mat-raised-button color="primary"
+  (click)="crearCuenta()"
+  >
+  Crear cuenta
+  </button>
+</mat-card>

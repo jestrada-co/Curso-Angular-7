@@ -8,16 +8,19 @@ import { SignupComponent } from './signup/signup.component';
 import { AppMaterialModule } from './../app-material/app-material.module';
 import { FormsModule } from '@angular/forms';
 
+import { RouterModule } from '@angular/router';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, PasswordRecoveryComponent],
   imports: [
     CommonModule,
     UsuarioRoutingModule,
     AppMaterialModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
-  exports: [
-    LoginComponent, SignupComponent
-  ]
+  exports: [LoginComponent],
+  entryComponents: [SignupComponent, PasswordRecoveryComponent ]
 })
 export class UsuarioModule { }

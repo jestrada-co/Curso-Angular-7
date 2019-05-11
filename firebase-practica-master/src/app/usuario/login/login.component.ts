@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {AppService} from './../../app.service';
+import { AppService } from './../../app.service';
+import { MatDialog } from '@angular/material';
+import { PasswordRecoveryComponent } from './../password-recovery/password-recovery.component';
+import { SignupComponent } from './../signup/signup.component';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,7 @@ export class LoginComponent implements OnInit {
   correo: string;
   clave: string;
   mensaje: string;
-  constructor(private servicio: AppService) { }
+  constructor(private servicio: AppService, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -25,6 +28,21 @@ export class LoginComponent implements OnInit {
     }, error => {
       this.mensaje = 'Verifique sus credenciales';
     });
+  }
+
+  mostrarDialog(componente: string) {
+    if (componente === 'signup') {
+      this.dialog.open(SignupComponent, {
+        width: '400px'
+      });
+    } else {
+      if (componente === 'passwordRecovery') {
+        this.dialog.open(PasswordRecoveryComponent, {
+          width: '400px'
+        });
+      }
+    }
+
   }
 
 }
