@@ -1,0 +1,30 @@
+.aside{
+    background: #f0eaea;
+    grid-area: aside;
+    .nav{
+        .list{
+            @include setSpacing(0);
+            .list-item{
+                .list-item-link{
+                    color: $links;
+                    display: block;
+                    padding: 10px 20px;
+                    transition: background 1s;
+                }
+                .list-item-link:hover{
+                    background: #dfdfdf;
+                }
+            }
+            .list-item:last-child{
+                .list-item-link{
+                    border-right: none;
+                }
+            }
+        }
+    }
+}
+@include mobile{
+    .aside{
+        display: none;
+    }
+}
