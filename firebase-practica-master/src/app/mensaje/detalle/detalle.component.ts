@@ -17,14 +17,24 @@ export class DetalleComponent implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(params => {
       this.id = params.id;
-
       this.servicio.consultar('mensajes', this.id)
-      .on('value', (snapshot) => {
-        this.nombre = snapshot.val().nombre;
-        this.correo = snapshot.val().correo;
-        this.mensaje = snapshot.val().mensaje;
+      .subscribe((data: any) => {
+        this.nombre = data.nombre;
+        this.correo = data.correo;
+        this.mensaje = data.mensaje;
       });
+    })
+  }
 
+  editar() {
+    this.servicio.editar('mensajes', this.id, {
+      nombre: this.nombre,
+      correo: this.correo,
+      menaje: this.mensaje
+    }).subscribe(data => {
+      this.servicio.listar('mensajes');
+    }, error => {
+      console.log(error);
     });
   }
 

@@ -21,10 +21,18 @@ export class LoginComponent implements OnInit {
   }
 
   autenticar() {
-    this.servicio.autenticar(this.correo, this.clave)
-    .then(user => {
-      localStorage.setItem('user', user.user.email);
-      this.EmisorEvento.emit();
+    this.servicio.autenticar('usuarios/login', {
+      correo: this.correo,
+      clave: this.clave}
+      ).subscribe(resp => {
+        if (resp['success']) {
+          localStorage.setItem('user', resp['token']);
+          this.EmisorEvento.emit();
+          console.log(resp['token']);
+        } else {
+          this.mensaje = 'Verifique sus credenciales';
+          console.log(resp);
+        }
     }, error => {
       this.mensaje = 'Verifique sus credenciales';
     });

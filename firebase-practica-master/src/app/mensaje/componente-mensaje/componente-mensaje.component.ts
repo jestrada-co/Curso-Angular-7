@@ -12,18 +12,17 @@ export class ComponenteMensajeComponent implements OnInit {
 
   coleccion: string;
   carpeta: string;
-
-
   correo: string;
   nombreArchivo: string;
   imagePath: string;
   imgURL: string;
   imgOriginalURL: any;
   mensaje: string;
-  mensajes: Observable<any[]>;
+  mensajes: Observable<any>;
   mimeType: any;
   nombre: string;
   reader: any;
+
   constructor(private servicio: AppService, private ng2ImgMaxService: Ng2ImgMaxService) { }
   inicializarCampos() {
     this.nombre = '';
@@ -45,17 +44,23 @@ export class ComponenteMensajeComponent implements OnInit {
       {nombre: this.nombre,
        correo: this.correo,
        mensaje: this.mensaje,
-       imagen: this.imgURL,
-       nombreArchivo: this.imgURL === null ? null : this.nombreArchivo
+       imagen: this.imgURL
+      }).subscribe(resp => {
+        this.inicializarCampos();
+        this.mensajes = this.servicio.listar(this.coleccion);
+      }, error => {
+        console.log(error);
       });
-    if (this.imgURL !== null) {
-      this.servicio.subirArchivo(this.carpeta, this.nombreArchivo, this.imgOriginalURL);
-    }
 
     this.inicializarCampos();
   }
   borrar(id: string) {
-    this.servicio.borrar(this.coleccion, id);
+    this.servicio.borrar(this.coleccion, id)
+    .subscribe(data => {
+      this.mensajes = this.servicio.listar(this.coleccion);
+    }, error => {
+      console.log(error);
+    });
   }
   obtenerNombre(archivo: any) {
     return String(Date.now()) + '.' + archivo.name.split('.').pop();

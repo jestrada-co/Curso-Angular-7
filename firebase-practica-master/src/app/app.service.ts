@@ -1,50 +1,41 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  mensajesRef: AngularFireList<any>;
-  constructor(private authenticator: AngularFireAuth, private db: AngularFireDatabase, private storage: AngularFireStorage) {
+  constructor(private cliente: HttpClient) { }
 
-  }
   recuperarClave(correo: string) {
-    return this.authenticator.auth.sendPasswordResetEmail(correo);
   }
-  crearCuenta(correo: string, clave: string) {
-    return this.authenticator.auth.createUserWithEmailAndPassword(correo, clave);
+  crearCuenta(coleccion: string, objeto: object) {
+    return this.cliente.post(`${environment.apiUrl}/${coleccion}`, objeto);
   }
-  autenticar(correo: string, clave: string) {
-    return this.authenticator.auth.signInWithEmailAndPassword(correo, clave);
+  autenticar(coleccion: string, objeto: object) {
+    return this.cliente.post(`${environment.apiUrl}/${coleccion}`, objeto);
   }
   cerrarSesion() {
-    this.authenticator.auth.signOut();
   }
   verficarSesion() {
-    return this.authenticator.auth;
   }
-
   listar(coleccion: string) {
-    return this.db.list(coleccion).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({key: c.payload.key, ...c.payload.val()})))
-    );
+    return this.cliente.get(`${environment.apiUrl}/${coleccion}`);
   }
   consultar(coleccion: string, key: string) {
-    return this.db.database.ref(coleccion).child(key);
+    return this.cliente.get(`${environment.apiUrl}/${coleccion}/${key}`);
   }
   guardar(coleccion: string, objeto: object) {
-    this.db.list(coleccion).push(objeto);
+    return this.cliente.post(`${environment.apiUrl}/${coleccion}`, objeto);
   }
   subirArchivo(carpeta: string, nombreArchivo: string, archivo: any) {
-    this.storage.ref(carpeta + '/' + nombreArchivo).put(archivo);
   }
   borrar(coleccion: string, key: string) {
-    this.db.list(coleccion).remove(key);
+    return this.cliente.delete(`${environment.apiUrl}/${coleccion}/${key}`);
+  }
+  editar(coleccion: string, key: string, objeto: object){
+    return this.cliente.put(`${environment.apiUrl}/${coleccion}/${key}`, objeto);
   }
 }

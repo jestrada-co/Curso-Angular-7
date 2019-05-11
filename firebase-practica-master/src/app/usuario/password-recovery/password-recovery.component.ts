@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../app.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-password-recovery',
@@ -8,7 +8,7 @@ import { AppService } from '../../app.service';
 })
 export class PasswordRecoveryComponent implements OnInit {
 
-  constructor(private service: AppService) { }
+  constructor( private dialog: MatDialog) { }
 
   correo: string;
 
@@ -16,7 +16,7 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   recuperarClave() {
-    this.service.recuperarClave(this.correo);
+    this.dialog.closeAll();
   }
 
 }
